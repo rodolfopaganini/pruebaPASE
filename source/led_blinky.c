@@ -38,8 +38,13 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+/*
 #define BOARD_LED_GPIO BOARD_LED_RED_GPIO
 #define BOARD_LED_GPIO_PIN BOARD_LED_RED_GPIO_PIN
+
+#define BOARD_LED_GPIO BOARD_LED_GREEN_GPIO
+#define BOARD_LED_GPIO_PIN BOARD_LED_GREEN_GPIO_PIN
+*/
 
 /*******************************************************************************
  * Prototypes
@@ -83,7 +88,9 @@ int main(void)
     BOARD_InitPins();
 
     /* Init output LED GPIO. */
-    GPIO_PinInit(BOARD_LED_GPIO, BOARD_LED_GPIO_PIN, &led_config);
+    GPIO_PinInit(BOARD_LED_RED_GPIO, BOARD_LED_RED_GPIO_PIN, &led_config);
+    GPIO_PinInit(BOARD_LED_GREEN_GPIO, BOARD_LED_GREEN_GPIO_PIN, &led_config);
+
 
     /* Set systick reload value to generate 1ms interrupt */
     if(SysTick_Config(SystemCoreClock / 1000U))
@@ -97,10 +104,14 @@ int main(void)
 
     while (1)
     {
-    	if (g_systickCounter = 0)
+    	if (g_systickCounter == 0)
     	{
     		g_systickCounter = 500;
-            GPIO_PortToggle(BOARD_LED_GPIO, 1u << BOARD_LED_GPIO_PIN);
+            GPIO_PortToggle(BOARD_LED_RED_GPIO, 1u << BOARD_LED_RED_GPIO_PIN);
+    	}
+    	if (g_systickCounter == 250 || g_systickCounter == 0)
+    	{
+    	    GPIO_PortToggle(BOARD_LED_GREEN_GPIO, 1u << BOARD_LED_GREEN_GPIO_PIN);
     	}
     }
 }

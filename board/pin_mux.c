@@ -57,6 +57,7 @@ void BOARD_InitBootPins(void) {
 }
 
 #define PIN29_IDX                       29u   /*!< Pin number for pin 29 in a port */
+#define PIN5_IDX                       5u   /*!< Pin number for pin 29 in a port */
 
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
@@ -74,8 +75,11 @@ BOARD_InitPins:
  *END**************************************************************************/
 void BOARD_InitPins(void) {
   CLOCK_EnableClock(kCLOCK_PortE);                           /* Port E Clock Gate Control: Clock enabled */
+  CLOCK_EnableClock(kCLOCK_PortD);                           /* Port E Clock Gate Control: Clock enabled */
 
   PORT_SetPinMux(PORTE, PIN29_IDX, kPORT_MuxAsGpio);         /* PORTE29 (pin 26) is configured as PTE29 */
+  PORT_SetPinMux(PORTD, PIN5_IDX, kPORT_MuxAsGpio);         /* PORTE29 (pin 26) is configured as PTE29 */
+
 }
 
 /*******************************************************************************
